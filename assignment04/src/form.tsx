@@ -1,4 +1,6 @@
 import React, { FormEvent, useState } from 'react';
+import styled from 'styled-components';
+// import { MdDone } from 'react-icons/md';
 
 
 interface Message {
@@ -10,6 +12,20 @@ interface Message {
 type Props = {
     addMessage: (value: Message) => void;
 }
+
+//TODO styling and rename styled components 
+
+const InputField = styled.input `
+    width: 500px
+`;
+
+const TextArea = styled.textarea `
+    width: 500px
+`;
+
+const SubmitBtn = styled.button`
+    background-color: steelblue
+`;
 
 export const Form = (props: Props): JSX.Element => {
     const[subject, setSubject] = useState('');
@@ -28,20 +44,20 @@ export const Form = (props: Props): JSX.Element => {
         <div className='formContainer'>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <p>Subject:</p>
-                <input
+                <InputField
                     type="text"
                     name="subject"
                     onChange={(event) => setSubject(event.target.value)}
                     value={subject || ''}
                 />
                 <p>Body:</p>
-                <textarea
+                <TextArea
                     name="body"
                     onChange={(event) => setBody(event.target.value)}
                     value={body || ''}
                 />
                 <br/>
-                <button className='submitBtn'>Submit</button>
+                <SubmitBtn>Submit</SubmitBtn>
             </form>
         </div>
     );
