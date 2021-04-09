@@ -1,7 +1,5 @@
 import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
-// import { MdDone } from 'react-icons/md';
-
 
 interface Message {
     subject: string;
@@ -13,18 +11,26 @@ type Props = {
     addMessage: (value: Message) => void;
 }
 
-//TODO styling and rename styled components 
-
 const InputField = styled.input `
-    width: 500px
+    width: 100%;
+    height: 25px;
 `;
 
 const TextArea = styled.textarea `
-    width: 500px
+    width: 100%;
+    height: 75px;
 `;
 
 const SubmitBtn = styled.button`
-    background-color: steelblue
+    width: 100px;
+    height: 40px;
+    background-color: lightsteelblue;
+    font-weight: bold;
+    margin-top: 20px;
+
+    &:hover {
+        background-color: steelblue;
+    }
 `;
 
 export const Form = (props: Props): JSX.Element => {
@@ -57,7 +63,7 @@ export const Form = (props: Props): JSX.Element => {
                     value={body || ''}
                 />
                 <br/>
-                <SubmitBtn>Submit</SubmitBtn>
+                <SubmitBtn disabled={!subject || !body}>Submit</SubmitBtn>
             </form>
         </div>
     );

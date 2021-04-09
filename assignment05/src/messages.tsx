@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 type Props = {
     messages: {subject: string, body: string, isRead: boolean}[];
@@ -6,15 +7,38 @@ type Props = {
     setToIsRead: (index: number) => void;
 };
 
+const MessageCounterText = styled.p`
+    color: red;
+    font-weight: bold;
+`;
+
+const ReadMessagesContainer = styled.div`
+    border: solid;
+    border-style: outset;
+    margin: 0px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
+`;
+
+const UnreadMessagesContainer = styled.div`
+    background-color: lightsteelblue;
+    border: solid;
+    border-style: outset;
+    margin: 0px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
+`;
+
 export const Messages = (props: Props): JSX.Element => {
     return(
         <div className='inboxContainer'>
-            <p className='unreadMessagesTxt'>You have {props.messageCounter} unread messages!</p><br/>
+            <MessageCounterText>{props.messageCounter > 0 && 
+                (props.messageCounter == 1 ? 'You have ' + props.messageCounter + ' unread message!' : 'You have ' + props.messageCounter + ' unread messages!')}</MessageCounterText><br/>
             <div className='messageContainer'>
-                {props.messages.map((msg, index) => 
-                    <div className={!msg.isRead ? 'unreadMessages' : 'readMessages'} key={index} onClick={() => !msg.isRead ? props.setToIsRead(index) : null}>
-                        Subject: {msg.subject} <br/> Body: {msg.body}
-                    </div>)}
+                {props.messages.map((msg, index) =>
+                    (!msg.isRead 
+                        ? <UnreadMessagesContainer key={index} onClick={() => props.setToIsRead(index)}>
+                            Subject: {msg.subject} <br/><br/> Body: {msg.body}</UnreadMessagesContainer>
+                        : <ReadMessagesContainer>
+                            Subject: {msg.subject} <br/><br/> Body: {msg.body} </ReadMessagesContainer>))}
             </div>
         </div>
     );
