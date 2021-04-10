@@ -13,7 +13,7 @@ interface Message {
 }
 
 const MainContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background: ${(props) => props.theme.backgroundColor}
 `;
 

@@ -29,6 +29,9 @@ const NavButton = styled.button`
     &:hover {
         color: ${(props) => props.theme.navButtonHoverColor};
     }
+    &:focus {
+        outline: none;
+    }
 `;
 
 const ToggleContainer = styled.div`
@@ -45,6 +48,9 @@ const ToggleButton = styled.button`
     color: ${(props) => props.theme.toggleColor};
     &:hover {
         color: ${(props) => props.theme.toggleHoverColor};
+    }
+    &:focus {
+        outline: none;
     }
 `;
 

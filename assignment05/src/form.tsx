@@ -50,6 +50,10 @@ const SubmitBtn = styled.button`
     &:disabled {
         color: grey;
     }
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const HeadingText = styled.p`
