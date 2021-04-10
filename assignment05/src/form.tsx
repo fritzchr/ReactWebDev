@@ -14,23 +14,46 @@ type Props = {
 const InputField = styled.input `
     width: 100%;
     height: 25px;
+    border: ${(props) => props.theme.inputFieldBorder};
+    border-radius: 5px;
+    background: ${(props) => props.theme.inputFieldColor};
+    color: ${(props) => props.theme.textColor};
+
+    &:hover: {
+        background-color: green;
+        box-shadow: 0px 4px 20px 0px;
+    }
 `;
 
 const TextArea = styled.textarea `
     width: 100%;
     height: 75px;
+    border: ${(props) => props.theme.inputFieldBorder};
+    border-radius: 5px;
+    background: ${(props) => props.theme.inputFieldColor};
+    color: ${(props) => props.theme.textColor};
 `;
 
 const SubmitBtn = styled.button`
     width: 100px;
     height: 40px;
-    background-color: lightsteelblue;
+    background-color: ${(props) => props.theme.submitButtonColor};
     font-weight: bold;
     margin-top: 20px;
+    border: none;
+    color: ${(props) => props.theme.textColor};
 
     &:hover {
-        background-color: steelblue;
+        box-shadow: 2px 2px 2px 1px;
     }
+
+    &:disabled {
+        color: grey;
+    }
+`;
+
+const HeadingText = styled.p`
+    color: ${(props) => props.theme.textColor};
 `;
 
 export const Form = (props: Props): JSX.Element => {
@@ -49,14 +72,14 @@ export const Form = (props: Props): JSX.Element => {
     return (
         <div className='formContainer'>
             <form onSubmit={(event) => handleSubmit(event)}>
-                <p>Subject:</p>
+                <HeadingText>Subject:</HeadingText>
                 <InputField
                     type="text"
                     name="subject"
                     onChange={(event) => setSubject(event.target.value)}
                     value={subject || ''}
                 />
-                <p>Body:</p>
+                <HeadingText>Body:</HeadingText>
                 <TextArea
                     name="body"
                     onChange={(event) => setBody(event.target.value)}

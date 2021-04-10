@@ -13,16 +13,19 @@ const MessageCounterText = styled.p`
 `;
 
 const ReadMessagesContainer = styled.div`
-    border: solid;
-    border-style: outset;
+    border: ${(props) => props.theme.messageBoxBorder};
+    border-radius: 5px;
+    color: ${(props) => props.theme.textColor};
     margin: 0px 20px 20px 20px;
     padding: 20px 20px 20px 20px;
+
 `;
 
 const UnreadMessagesContainer = styled.div`
-    background-color: lightsteelblue;
-    border: solid;
-    border-style: outset;
+    background-color: ${(props) => props.theme.messageBoxColor};
+    border: ${(props) => props.theme.messageBoxBorder};
+    border-radius: 5px;
+    color: ${(props) => props.theme.textColor};
     margin: 0px 20px 20px 20px;
     padding: 20px 20px 20px 20px;
 `;
@@ -30,6 +33,8 @@ const UnreadMessagesContainer = styled.div`
 export const Messages = (props: Props): JSX.Element => {
     return(
         <div className='inboxContainer'>
+            <MessageCounterText>{props.messages.length == 0 &&
+                'You have no messages!'}</MessageCounterText>
             <MessageCounterText>{props.messageCounter > 0 && 
                 (props.messageCounter == 1 ? 'You have ' + props.messageCounter + ' unread message!' : 'You have ' + props.messageCounter + ' unread messages!')}</MessageCounterText><br/>
             <div className='messageContainer'>

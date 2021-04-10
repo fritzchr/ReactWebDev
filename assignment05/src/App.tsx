@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { LightTheme, DarkTheme } from './styles/themes';
+import { GlobalStyles } from './styles/globalStyles';
 import { Form } from "./form";
 import { Messages } from "./messages";
 import { NavigationHeader } from './navigation';
@@ -10,36 +12,23 @@ interface Message {
   isRead: boolean;
 }
 
-const GlobalStyles = createGlobalStyle`
-    body {
-      font-family: arial;
-    }
-
-    p {
-      font-weight: bold;
-    }
+const MainContainer = styled.div`
+  height: 100vh;
+  background: ${(props) => props.theme.backgroundColor}
 `;
 
-//TODO finish implementing styles and themes -> create component & styles folder 
-
- const themes = {
-  light: {
-      backgroundColor: 'white',
-      navColor: 'lightsteelblue',
-  },
-
-  dark: {
-      backgroundColor: 'darkgrey',
-      navColor: 'grey',
-  }
-};
+const ContentContainer = styled.div`
+  margin-left: 20px;
+  margin-right: 20px;
+`;
 
 export const App = (): JSX.Element => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [messageCounter, setMessageCounter] = useState(0);
   const [isMessageView, setMessageView] = useState(false);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(LightTheme);
 
+  //adds new message and increments message counter
   const addMessage = (message: {
     subject: string;
     body: string;
@@ -50,6 +39,7 @@ export const App = (): JSX.Element => {
     setMessageView(true);
   };
 
+  //marks message as read and decrements message counter
   const setToIsRead = (index: number) => {
     const message = [...messages];
     message[index].isRead = true;
@@ -57,25 +47,37 @@ export const App = (): JSX.Element => {
     setMessageCounter(messageCounter - 1);
   };
 
+  //changes theme
   const changeTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
+    if (theme === LightTheme) {
+      setTheme(DarkTheme);
     } else {
-      setTheme('light');
+      setTheme(LightTheme);
     }
   };
+
+  //is used to pass state to navigation component to change icons
+  const isLightTheme = () => {
+    if (theme === LightTheme) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <>
     <GlobalStyles/>
-    <ThemeProvider theme={theme === 'light' ? themes.light : themes.dark}>
-        <NavigationHeader displayMessageView={setMessageView} messageCounter={messageCounter} changeTheme={changeTheme}></NavigationHeader>
-        <div className='content'>
+    <ThemeProvider theme={theme}>
+          <MainContainer>
+        <NavigationHeader displayMessageView={setMessageView} messageCounter={messageCounter} changeTheme={changeTheme} isLightTheme={isLightTheme}></NavigationHeader>
+        <ContentContainer>
             {!isMessageView ? 
                 <Form addMessage={addMessage}></Form> :
                 <Messages messages={messages} setToIsRead={setToIsRead} messageCounter={messageCounter}></Messages>
             }      
-        </div>
+        </ContentContainer>
+        </MainContainer>
     </ThemeProvider>
     </>
   );

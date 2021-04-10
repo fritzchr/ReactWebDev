@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { WbSunny, Brightness2 } from '@material-ui/icons'
 
 type Props = {
     displayMessageView: (value: boolean) => void;
     messageCounter: number;
     changeTheme: () => void;
+    //returning state to change icon
+    isLightTheme: () => boolean;
 };
 
 const NavHeader = styled.div`
@@ -13,36 +16,45 @@ const NavHeader = styled.div`
     padding-bottom: 20px;
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    white-space: no-wrap;
 `;
 
 const NavButton = styled.button`
     background: none;
     border: none;
-    color: white;
-    text-decoration: underline white;
-
+    font-weight: bold;
+    font-size: 18px;
+    color: ${(props) => props.theme.navButtonColor};
     &:hover {
-        color: black;
-        text-decoration: underline black;
+        color: ${(props) => props.theme.navButtonHoverColor};
     }
 `;
 
 const ToggleContainer = styled.div`
-    margin-left: 10px;
+    margin-left: 20px;
 `;
 
 const ButtonContainer = styled.div`
     margin-right: 10px;
 `;
 
-const ThemeSwitcher = styled.input`
+const ToggleButton = styled.button`
+    background: none;
+    border: none;
+    color: ${(props) => props.theme.toggleColor};
+    &:hover {
+        color: ${(props) => props.theme.toggleHoverColor};
+    }
 `;
 
 export const NavigationHeader = (props: Props): JSX.Element => {
     return (
         <NavHeader>
             <ToggleContainer>
-                <ThemeSwitcher type="checkbox" onChange={() => props.changeTheme()}></ThemeSwitcher>
+                <ToggleButton onClick={() => props.changeTheme()}>
+                    {props.isLightTheme() ? <Brightness2></Brightness2> : <WbSunny></WbSunny>}
+                </ToggleButton>
             </ToggleContainer>
             <ButtonContainer>
                 <NavButton onClick={() => props.displayMessageView(true)}>Messages 
@@ -50,7 +62,7 @@ export const NavigationHeader = (props: Props): JSX.Element => {
                         <span>{props.messageCounter > 5 ? ' (5+ new)' : ' (' + props.messageCounter + ' new)'}</span>
                     }
                 </NavButton>
-                <NavButton onClick={() => props.displayMessageView(false)}>Compose Message</NavButton>
+                <NavButton onClick={() => props.displayMessageView(false)}>Add Message</NavButton>
             </ButtonContainer>
         </NavHeader>
     );

@@ -1,0 +1,31 @@
+export const LightTheme = {
+    textColor: 'black',
+    backgroundColor: 'white',
+    navColor: 'lightsteelblue',
+    inputFieldColor: 'white',
+    inputFieldBorder: '2px solid black',
+    navButtonColor: 'black',
+    navButtonHoverColor: 'white',
+    submitButtonColor: 'lightsteelblue',
+    submitButtonHoverColor: 'steelblue',
+    messageBoxColor: 'lightsteelblue',
+    messageBoxBorder: '2px solid black',
+    toggleColor: 'black',
+    toggleHoverColor: 'white',
+};
+
+export const DarkTheme = {
+    textColor: 'white',
+    backgroundColor: '#17171a',
+    navColor: '#121212',
+    inputFieldColor: '#17171a',
+    inputFieldBorder: '2px solid white',
+    navButtonColor: '#BB86FC',
+    navButtonHoverColor: 'white',
+    submitButtonColor: '#BB86FC',
+    submitButtonHoverColor: 'pink',
+    messageBoxColor: '#BB86FC',
+    messageBoxBorder: '2px solid white',
+    toggleColor: '#BB86FC',
+    toggleHoverColor: 'white',
+};
