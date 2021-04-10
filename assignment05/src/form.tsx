@@ -18,10 +18,8 @@ const InputField = styled.input `
     border-radius: 5px;
     background: ${(props) => props.theme.inputFieldColor};
     color: ${(props) => props.theme.textColor};
-
-    &:hover: {
-        background-color: green;
-        box-shadow: 0px 4px 20px 0px;
+    &:focus {
+        outline: none;
     }
 `;
 
@@ -32,6 +30,10 @@ const TextArea = styled.textarea `
     border-radius: 5px;
     background: ${(props) => props.theme.inputFieldColor};
     color: ${(props) => props.theme.textColor};
+    resize: none;
+    &:focus {
+        outline: none;
+    }
 `;
 
 const SubmitBtn = styled.button`
