@@ -14,6 +14,7 @@ interface Message {
 
 const MainContainer = styled.div`
   min-height: 100vh;
+  overflow-y: auto;
   background: ${(props) => props.theme.backgroundColor}
 `;
 
