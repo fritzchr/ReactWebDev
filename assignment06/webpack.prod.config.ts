@@ -30,9 +30,16 @@ const config: webpack.Configuration = {
         },
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.png$/,
         exclude: /node_modules/,
-        use: "file-loader"
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false
+            },
+          },
+        ],
       },
     ],
   },
