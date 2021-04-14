@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Game } from './businessLogic/game';
+import { Game } from './gameLogic/game';
 import { CardComponent } from './components/CardComponent';
 import Button from './components/Button';
 
@@ -18,7 +18,7 @@ const ButtonContainer = styled.div`
     justify-content: center;
     width: 400px;
     margin: auto;
-    margin-top: 10px;
+    margin-top 20px;
 `;
 
 const Score = styled.h1`

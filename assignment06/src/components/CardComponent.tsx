@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card } from '../businessLogic/card';
+import { Card } from '../gameLogic/card';
 
 
 type Props = {
@@ -29,9 +29,7 @@ const CardText = styled.p`
     margin: auto;
 `;
 
-
 export const CardComponent = (props: Props): JSX.Element => {
-
     return(
         <CardContaianer>
             <CardImage src={props.card.suit.path} alt={props.card.suit.name}></CardImage>
