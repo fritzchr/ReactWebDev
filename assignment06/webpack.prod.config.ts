@@ -29,6 +29,11 @@ const config: webpack.Configuration = {
           },
         },
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        exclude: /node_modules/,
+        use: "file-loader"
+      },
     ],
   },
   resolve: {
