@@ -1,2 +1,1 @@
-#Overview
-This repository covers all assignments from the bachelor's degree software engineering from the FHV.
+This repository covers all mandatory exercises in "Building a Web Application with React" - 6th Semester at the University of Applied Sciences Vorarlberg
