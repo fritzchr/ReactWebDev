@@ -4,7 +4,6 @@ export default styled.button`
     background-color: #258ef7;
     color: white;
     font-size: 14px;
-
     margin: 20px 20px 0px 0px;
     border: none;
     border-radius: 25px;
