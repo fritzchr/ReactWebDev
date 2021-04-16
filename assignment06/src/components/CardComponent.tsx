@@ -27,13 +27,14 @@ const CardText = styled.p`
     font-size 250px;
     align-self: center;
     margin: auto;
+    color: ${({color}) => color === 'hearts' || color === 'diamonds' ? 'red' : 'black'};
 `;
 
 export const CardComponent = (props: Props): JSX.Element => {
     return(
         <CardContaianer>
             <CardImage src={props.card.suit.path} alt={props.card.suit.name}></CardImage>
-            <CardText>{props.card.value}</CardText>
+            <CardText color={props.card.suit.name}>{props.card.value}</CardText>
         </CardContaianer>
     );
 }
