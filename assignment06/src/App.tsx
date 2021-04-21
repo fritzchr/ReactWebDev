@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Game } from './gameLogic/game';
+import { Game } from './model/game';
 import { CardComponent } from './components/CardComponent';
 import Button from './components/Button';
 

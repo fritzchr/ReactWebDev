@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card } from '../gameLogic/card';
+import { Card } from '../model/card';
 
 
 type Props = {
