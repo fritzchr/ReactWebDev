@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 
 const API_KEY = 'XdaoZq9JMeywVQvulWH47Yv2ZPAY6AC0';
 const BASE_URL = 'https://api.giphy.com/v1/gifs/';
-const LIMIT = 13;
+const LIMIT = 12;
 
 export type Gifs = {
     title: string;
@@ -35,7 +35,7 @@ export class Store {
             url = BASE_URL + `search?api_key=${API_KEY}&limit=${LIMIT}&q=${this.searchString}`;
         } else {
             //URL to call API for TRENDING request
-            url = BASE_URL + `trending?api_key=${API_KEY}&limit=${LIMIT}`;
+            url = BASE_URL + `trending?api_key=${API_KEY}&limit=${LIMIT}&offset=12`;
         }
 
         this.isLoading = true;

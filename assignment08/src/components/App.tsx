@@ -4,6 +4,7 @@ import { observer, useLocalObservable } from 'mobx-react';
 import { Store } from '../model/Store';
 import { GlobalStyles } from '../styles/GlobalStyles';
 import { NavigationHeader } from './NavigationHeader';
+import { Card } from './Card';
 
 // Implement a viewer for the Giphy API with the following menu items
 // Search field allows to search gifs
@@ -18,8 +19,6 @@ import { NavigationHeader } from './NavigationHeader';
 // Make sure that the right amount of requests is sent
 // Show a loader text while the request is being sent
 // Use autorun and useLocalObservable for creating a MobX store automatically requesting required data
-
-// const API_KEY = "XdaoZq9JMeywVQvulWH47Yv2ZPAY6AC0";
 
 const Container = styled.div`
   display: 'flex';
@@ -43,19 +42,15 @@ export const App = observer(
         return (
             <Container>
                 <GlobalStyles />
-                {console.log('in render: ' + store.gifs.map((item) => item.title + " " + item.url))}
                 <NavigationHeader />
-
                     <>
-                        {store.gifs.map((item, index) => {
-                            {console.log('in map: ' + store.gifs.map((item) => item.title))}
-                            <>
-                            <p>Title:</p>
-                            <p key={index}>{item.title}</p>;
-                            </>
-                        })}
+                    {store.isLoading ? 
+                        <p>loading...</p> :
+                        <>
+                        <Card gifs={store.gifs}></Card>
+                        </>
+                    }
                     </>
-                
             </Container>
         );
     }
