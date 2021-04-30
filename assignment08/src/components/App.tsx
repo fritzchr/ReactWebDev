@@ -5,6 +5,7 @@ import { Store } from '../model/Store';
 import { GlobalStyles } from '../styles/GlobalStyles';
 import { NavigationHeader } from './NavigationHeader';
 import { Card } from './Card';
+import { SearchView } from './SearchView';
 
 // Implement a viewer for the Giphy API with the following menu items
 // Search field allows to search gifs
@@ -22,6 +23,12 @@ import { Card } from './Card';
 
 const Container = styled.div`
   display: 'flex';
+  flex-direction: 'row';
+`;
+
+const ContentContainer = styled.div`
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 function createStore(): Store {
@@ -42,15 +49,21 @@ export const App = observer(
         return (
             <Container>
                 <GlobalStyles />
-                <NavigationHeader />
+                <NavigationHeader store={store}/>
+                <ContentContainer>
+                {store.currentScreen === 'Trending' ? 
                     <>
                     {store.isLoading ? 
                         <p>loading...</p> :
                         <>
-                        <Card gifs={store.gifs}></Card>
+                        <Card content={store.gifs}></Card>
                         </>
                     }
                     </>
+                    :
+                    <SearchView store={store}/>
+                }
+                </ContentContainer>
             </Container>
         );
     }

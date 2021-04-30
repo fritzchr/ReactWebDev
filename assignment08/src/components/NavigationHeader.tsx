@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Store } from '../model/Store';
+
+type Props = {
+    store: Store;
+}
 
 const NavHeader = styled.div`
     background-color: lightsteelblue;
@@ -29,13 +34,12 @@ const ButtonContainer = styled.div`
     margin-right: 10px;
 `;
 
-
-export const NavigationHeader = (): JSX.Element => {
+export const NavigationHeader = ({store}: Props): JSX.Element => {
     return (
         <NavHeader>
             <ButtonContainer>
-                <NavButton>Trending</NavButton>
-                <NavButton>Search</NavButton>
+                <NavButton onClick={() => store.changeScreen('Trending')}>Trending</NavButton>
+                <NavButton onClick={() => store.changeScreen('Search')}>Search</NavButton>
             </ButtonContainer>
         </NavHeader>
     );

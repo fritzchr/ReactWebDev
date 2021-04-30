@@ -61,6 +61,14 @@ export class Store {
         this.fetch();
     }
 
+    @action changeScreen(screen: string): void {
+        if (this.currentScreen !== screen) {
+            this.reset();
+            this.searchString = '';
+            this.currentScreen = screen;    
+        }
+    }
+
     //resets gif storage
     reset(): void {
         this.gifs = [];
