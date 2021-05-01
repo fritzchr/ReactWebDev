@@ -1,9 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Container } from '../styles/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 //TODO: implement LoadingView
 export const LoadingView = (): JSX.Element => {
-    return(
-        <p></p>
+    return (
+        <Container>
+            <p>loading...</p>
+            <LinearProgress />
+        </Container>
     );
-}
+};

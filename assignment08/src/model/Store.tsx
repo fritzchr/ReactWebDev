@@ -1,8 +1,8 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 const API_KEY = 'XdaoZq9JMeywVQvulWH47Yv2ZPAY6AC0';
 const BASE_URL = 'https://api.giphy.com/v1/gifs/';
-const LIMIT = 12;
+const LIMIT = 15;
 
 export type Gifs = {
     title: string;
@@ -15,6 +15,7 @@ export class Store {
     @observable searchString: string;
     @observable isLoading: boolean;
     @observable currentPage: number;
+    @observable maxPage: number;
 
     constructor() {
         makeObservable(this);
@@ -22,9 +23,11 @@ export class Store {
         this.currentScreen = 'Trending';
         this.searchString = '';
         this.isLoading = false;
-        this.currentPage = 1;
+        this.currentPage = 0;
+        this.maxPage = 0;
     }
 
+    //invokes api call
     @action fetch(): void {
         let url: string;
         if (this.currentScreen !== 'Trending') {
@@ -32,14 +35,13 @@ export class Store {
                 return;
             }
             //URL to call API for SEARCH request
-            url = BASE_URL + `search?api_key=${API_KEY}&limit=${LIMIT}&q=${this.searchString}`;
+            url = BASE_URL + `search?api_key=${API_KEY}&limit=${LIMIT}&offset=${this.currentPage * LIMIT}&q=${this.searchString}`;
         } else {
             //URL to call API for TRENDING request
-            url = BASE_URL + `trending?api_key=${API_KEY}&limit=${LIMIT}&offset=12`;
+            url = BASE_URL + `trending?api_key=${API_KEY}&limit=${LIMIT}&offset=${this.currentPage * LIMIT}`;
         }
 
         this.isLoading = true;
-        console.log('fetching');
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
@@ -49,28 +51,48 @@ export class Store {
                         title: item.title,
                     };
                 });
-                console.log('after fetch: ' + this.gifs.map((item) => item.title));
+
+                const amountOfPages = json.pagination.total_count;
+                this.maxPage = parseInt((amountOfPages / LIMIT).toFixed(0));
                 this.isLoading = false;
             })
             .catch((error) => console.log(error));
     }
 
+    //is used to search for gifs
     @action search(input: string): void {
         this.reset();
         this.searchString = input;
         this.fetch();
     }
 
+    //is used to navigate between screens
     @action changeScreen(screen: string): void {
         if (this.currentScreen !== screen) {
             this.reset();
             this.searchString = '';
-            this.currentScreen = screen;    
+            this.currentScreen = screen;
         }
     }
 
-    //resets gif storage
+    //is used to navigate between pages
+    @action setPage(page: number): void {
+        if (page < 0) {
+            this.currentPage = 0;
+        } else {
+            this.currentPage = page;
+        }
+    }
+
+    //returns current page number + 1 to correctly display
+    @computed get getCurrentPageNumber(): string {
+        return (this.currentPage + 1).toString();
+    }
+
+    //is used to reset stored gifs and number of pages
     reset(): void {
         this.gifs = [];
+        this.currentPage = 0;
+        this.maxPage = 0;
     }
 }

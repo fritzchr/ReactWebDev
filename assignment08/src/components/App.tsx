@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { observer, useLocalObservable } from 'mobx-react';
 import { Store } from '../model/Store';
 import { GlobalStyles } from '../styles/GlobalStyles';
+import { Container } from '../styles/Container';
 import { NavigationHeader } from './NavigationHeader';
-import { Card } from './Card';
+import { Content } from './Content';
 import { SearchView } from './SearchView';
+import { LoadingView } from './LoadingView';
+import { Pagination } from './Pagination';
 
 // Implement a viewer for the Giphy API with the following menu items
 // Search field allows to search gifs
@@ -21,14 +24,9 @@ import { SearchView } from './SearchView';
 // Show a loader text while the request is being sent
 // Use autorun and useLocalObservable for creating a MobX store automatically requesting required data
 
-const Container = styled.div`
-  display: 'flex';
-  flex-direction: 'row';
-`;
-
 const ContentContainer = styled.div`
-  margin-left: 20px;
-  margin-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 `;
 
 function createStore(): Store {
@@ -41,29 +39,31 @@ export const App = observer(
 
         //TODO: implement useEffect hook to destroy store
         useEffect(() => {
-          if(store.currentScreen === 'Trending') {
-            store.fetch();
-          }
+            if (store.currentScreen === 'Trending') {
+                store.fetch();
+            }
         }, [store, store.currentScreen]);
 
         return (
             <Container>
                 <GlobalStyles />
-                <NavigationHeader store={store}/>
+                <NavigationHeader store={store} />
                 <ContentContainer>
-                {store.currentScreen === 'Trending' ? 
-                    <>
-                    {store.isLoading ? 
-                        <p>loading...</p> :
+                    {store.currentScreen === 'Trending' ? (
                         <>
-                        <Card content={store.gifs}></Card>
+                            {store.isLoading ? (
+                                <LoadingView />
+                            ) : (
+                                <>
+                                    <Content content={store.gifs}></Content>
+                                </>
+                            )}
                         </>
-                    }
-                    </>
-                    :
-                    <SearchView store={store}/>
-                }
+                    ) : (
+                        <SearchView store={store} />
+                    )}
                 </ContentContainer>
+                {store.currentScreen === 'Search' && store.searchString === '' ? <div /> : <Pagination store={store} />}
             </Container>
         );
     }

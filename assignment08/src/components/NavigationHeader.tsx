@@ -4,14 +4,15 @@ import { Store } from '../model/Store';
 
 type Props = {
     store: Store;
-}
+};
 
 const NavHeader = styled.div`
     background-color: lightsteelblue;
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
-    justify-content: right;
+    flex-direction: row;
+    justify-content: flex-end;
     width: 100%;
     white-space: no-wrap;
 `;
@@ -34,7 +35,7 @@ const ButtonContainer = styled.div`
     margin-right: 10px;
 `;
 
-export const NavigationHeader = ({store}: Props): JSX.Element => {
+export const NavigationHeader = ({ store }: Props): JSX.Element => {
     return (
         <NavHeader>
             <ButtonContainer>
