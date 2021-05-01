@@ -4,7 +4,7 @@ const API_KEY = 'XdaoZq9JMeywVQvulWH47Yv2ZPAY6AC0';
 const BASE_URL = 'https://api.giphy.com/v1/gifs/';
 const LIMIT = 15;
 
-export type Gifs = {
+type Gifs = {
     title: string;
     url: string;
 };
