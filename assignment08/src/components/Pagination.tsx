@@ -20,10 +20,13 @@ const PaginationButton = styled.button`
     background: none;
     border: none;
     &:hover {
-        color: white;
+        color: #436d99;
     }
     &:focus {
         outline: none;
+    }
+    &:disabled {
+        color:grey;
     }
 `;
 

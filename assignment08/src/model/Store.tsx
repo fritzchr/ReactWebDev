@@ -2,7 +2,7 @@ import { action, computed, makeObservable, observable } from 'mobx';
 
 const API_KEY = 'XdaoZq9JMeywVQvulWH47Yv2ZPAY6AC0';
 const BASE_URL = 'https://api.giphy.com/v1/gifs/';
-const LIMIT = 15;
+const DISPLAY_LIMIT = 15;
 
 type Gifs = {
     title: string;
@@ -35,10 +35,10 @@ export class Store {
                 return;
             }
             //URL to call API for SEARCH request
-            url = BASE_URL + `search?api_key=${API_KEY}&limit=${LIMIT}&offset=${this.currentPage * LIMIT}&q=${this.searchString}`;
+            url = BASE_URL + `search?api_key=${API_KEY}&limit=${DISPLAY_LIMIT}&offset=${this.currentPage * DISPLAY_LIMIT}&q=${this.searchString}`;
         } else {
             //URL to call API for TRENDING request
-            url = BASE_URL + `trending?api_key=${API_KEY}&limit=${LIMIT}&offset=${this.currentPage * LIMIT}`;
+            url = BASE_URL + `trending?api_key=${API_KEY}&limit=${DISPLAY_LIMIT}&offset=${this.currentPage * DISPLAY_LIMIT}`;
         }
 
         this.isLoading = true;
@@ -47,16 +47,19 @@ export class Store {
             .then((json) => {
                 this.gifs = json.data.map((item) => {
                     return {
-                        url: item.images.fixed_height.url,
                         title: item.title,
+                        url: item.images.fixed_height.url,
                     };
                 });
 
                 const amountOfPages = json.pagination.total_count;
-                this.maxPage = parseInt((amountOfPages / LIMIT).toFixed(0));
+                this.maxPage = parseInt((amountOfPages / DISPLAY_LIMIT).toFixed(0));
                 this.isLoading = false;
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                this.reset();
+                console.log(error)
+            });
     }
 
     //is used to search for gifs

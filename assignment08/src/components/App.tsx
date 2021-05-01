@@ -10,20 +10,6 @@ import { SearchView } from './SearchView';
 import { LoadingView } from './LoadingView';
 import { Pagination } from './Pagination';
 
-// Implement a viewer for the Giphy API with the following menu items
-// Search field allows to search gifs
-//     Include a pagination
-//         Previous and Next link
-//         Editable text field holding the current value
-//         Avoid passing non-existing pages
-//         Show number of pages
-//             Giphy API has an error loading with high offset
-// Show trending gifs
-//     Include a pagination
-// Make sure that the right amount of requests is sent
-// Show a loader text while the request is being sent
-// Use autorun and useLocalObservable for creating a MobX store automatically requesting required data
-
 const ContentContainer = styled.div`
     margin-left: 20px;
     margin-right: 20px;
@@ -37,7 +23,6 @@ export const App = observer(
     (): JSX.Element => {
         const store = useLocalObservable(createStore);
 
-        //TODO: implement useEffect hook to destroy store
         useEffect(() => {
             if (store.currentScreen === 'Trending') {
                 store.fetch();
