@@ -3,10 +3,16 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Store } from '../model/Store';
 
+//decided to pass currentPage as attribute even though getCurrentPage returns currentPage + 1 as string
+//so that i don't have to use parseInt -/+ 1 on each operation
+//could've made a function in this component to return currentPage + 1 as string but decided to keep it in Store
+//to make use of @computed once
 type Props = {
-    store: Store;
+    setPage (page: number): void;
+    getCurrentPage (): string;
+    maxPage: number;
+    currentPage: number;
 };
 
 const PaginationContainer = styled.div`
@@ -44,35 +50,33 @@ const MaxPageNumber = styled.p`
 `;
 
 export const Pagination = observer(
-    ({ store }: Props): JSX.Element => {
-        const setPage = (page: number) => {
+    ({ setPage, getCurrentPage, maxPage, currentPage }: Props): JSX.Element => {
+
+        const changePage = (page: number) => {
             //page can't be greater than maxPage
-            if (page >= store.maxPage) {
-                store.setPage(store.maxPage - 1);
-                store.fetch();
+            if (page >= maxPage) {
+                setPage(maxPage - 1);
             }
             //page can only be a number
             else if (isNaN(page)) {
-                store.setPage(0);
-                store.fetch();
+                setPage(0);
             } else {
-                store.setPage(page);
-                store.fetch();
+                setPage(page);
             }
         };
 
         return (
             <PaginationContainer>
-                <PaginationButton disabled={store.currentPage <= 0} onClick={() => setPage(store.currentPage - 1)}>
+                <PaginationButton disabled={(currentPage - 1) <= 0} onClick={() => changePage(currentPage - 1)}>
                     <ArrowBackIosIcon />
                 </PaginationButton>
                 <PageNumber
                     type='text'
-                    value={store.getCurrentPageNumber}
-                    onChange={(event) => setPage(parseInt(event.target.value) - 1)}
+                    value={getCurrentPage()}
+                    onChange={(event) => changePage(parseInt(event.target.value) - 1)}
                 ></PageNumber>
-                <MaxPageNumber> of {store.maxPage}</MaxPageNumber>
-                <PaginationButton disabled={store.currentPage + 1 >= store.maxPage} onClick={() => setPage(store.currentPage + 1)}>
+                <MaxPageNumber> of {maxPage}</MaxPageNumber>
+                <PaginationButton disabled={currentPage + 1 >= maxPage} onClick={() => changePage(currentPage + 1)}>
                     <ArrowForwardIosIcon />
                 </PaginationButton>
             </PaginationContainer>
