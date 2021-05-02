@@ -27,7 +27,6 @@ const Gif = styled.img`
     align-self: center;
 `;
 
-//TODO: replace with content and create CardComponent
 export const Card = (props: Props): JSX.Element => {
     return (
         <CardContainer>
