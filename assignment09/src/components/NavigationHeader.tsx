@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+type Props = {
+    language: string;
+    changeLanguage(language: string): void;
+}
 
 const NavHeader = styled.div`
     background-color: lightsteelblue;
@@ -30,14 +35,22 @@ const LinkContainer = styled.div`
     margin-right: 10px;
 `;
 
-export const NavigationHeader = (): JSX.Element => {
+export const NavigationHeader = ({language, changeLanguage}: Props): JSX.Element => {
+    const history = useHistory();
+
+    useEffect(() => {
+        history.push({
+            search: "?lang=" + language,
+        });
+    }, [language]);
+
     return (
         <NavHeader>
             <LinkContainer>
-                <NavLink to='/numbers'>Numbers</NavLink>
-                <NavLink to='/dates'>Dates</NavLink>
-                <NavLink to='/text'>Text</NavLink>
-                <select>
+                <NavLink to={{ pathname: '/numbers', search:'?lang=' + language}}>Numbers</NavLink>
+                <NavLink to={{ pathname: '/dates', search:'?lang=' + language}}>Dates</NavLink>
+                <NavLink to={{ pathname: '/texts', search:'?lang=' + language}}>Text</NavLink>
+                <select value={language} onChange={(event) => changeLanguage(event.target.value)}>
                     <option value='en'>en</option>
                     <option value='de'>de</option>
                     <option value='nl'>nl</option>

@@ -1,35 +1,39 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { GlobalStyles } from '../styles/GlobalStyles';
 import { NavigationHeader } from './NavigationHeader';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
 import { NumbersView } from './NumbersView';
 import { DateView } from './DateView';
 import { TextView } from './TextView';
 
-// function createStore(): Store {
-//     return new Store();
-// }
-
 export const App = (): JSX.Element => {
-    //const store = useLocalObservable(createStore);
+    const history = useHistory();
+    const [language, setLangauge] = useState('en');
+
+    const changeLanguage = (language: string): void => {
+        setLangauge(language);
+    }
 
     return (
         <>
-            <Router>
-                <GlobalStyles />
-                <NavigationHeader />
-                <Switch>
-                    <Route path="/numbers">
-                        <NumbersView/>
-                    </Route>
-                    <Route path="/dates">
-                        <DateView/>
-                    </Route>
-                    <Route path="/text">
-                        <TextView/>
-                    </Route>
-                </Switch>
-            </Router>
+            <IntlProvider locale={language}>
+                <Router>
+                    <GlobalStyles />
+                    <NavigationHeader language={language} changeLanguage={changeLanguage}/>
+                    <Switch>
+                        <Route path="/numbers">
+                            <NumbersView/>
+                        </Route>
+                        <Route path="/dates">
+                            <DateView/>
+                        </Route>
+                        <Route path="/text">
+                            <TextView/>
+                        </Route>
+                    </Switch>
+                </Router>
+            </IntlProvider>
         </>
     );
 };

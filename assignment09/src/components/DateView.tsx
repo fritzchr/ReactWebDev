@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { FormattedDate } from 'react-intl';
 
 export const DateView = (): JSX.Element => {
     const [date, setDate] = useState('');
@@ -11,7 +12,7 @@ export const DateView = (): JSX.Element => {
     return (
         <>
             <input type='date' onChange={(event) => changeDate(event.target.value)}></input>
-            <p>{date}</p>
+            <FormattedDate value={new Date(date)}/>
         </>
     );
 };
