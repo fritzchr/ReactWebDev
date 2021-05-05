@@ -53,8 +53,7 @@ export const NavigationHeader = ({language, changeLanguage}: Props): JSX.Element
                 <select value={language} onChange={(event) => changeLanguage(event.target.value)}>
                     <option value='en'>en</option>
                     <option value='de'>de</option>
-                    <option value='nl'>nl</option>
-                    <option value='pl'>pl</option>
+                    <option value='fr'>fr</option>
                 </select>
             </LinkContainer>
         </NavHeader>
