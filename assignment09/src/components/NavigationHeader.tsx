@@ -42,7 +42,7 @@ export const NavigationHeader = ({language, changeLanguage}: Props): JSX.Element
         history.push({
             search: "?lang=" + language,
         });
-    }, [language]);
+    }, [history, language]);
 
     return (
         <NavHeader>
