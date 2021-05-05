@@ -1,22 +1,35 @@
 import React from 'react';
-import { observer, useLocalObservable } from 'mobx-react';
-import { Store } from '../model/Store';
 import { GlobalStyles } from '../styles/GlobalStyles';
 import { NavigationHeader } from './NavigationHeader';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { NumbersView } from './NumbersView';
+import { DateView } from './DateView';
+import { TextView } from './TextView';
 
-function createStore(): Store {
-    return new Store();
-}
+// function createStore(): Store {
+//     return new Store();
+// }
 
-export const App = observer(
-    (): JSX.Element => {
-        const store = useLocalObservable(createStore);
+export const App = (): JSX.Element => {
+    //const store = useLocalObservable(createStore);
 
-        return (
-            <>
-            <GlobalStyles/>
-            <NavigationHeader/>
-            </>
-        );
-    }
-);
+    return (
+        <>
+            <Router>
+                <GlobalStyles />
+                <NavigationHeader />
+                <Switch>
+                    <Route path="/numbers">
+                        <NumbersView/>
+                    </Route>
+                    <Route path="/dates">
+                        <DateView/>
+                    </Route>
+                    <Route path="/text">
+                        <TextView/>
+                    </Route>
+                </Switch>
+            </Router>
+        </>
+    );
+};
