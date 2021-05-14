@@ -4,7 +4,8 @@ node_modules/
 .pnp.js
 
 # testing
-/coverage
+coverage/
+tests_output/
 
 # production
 dist/
@@ -19,3 +20,6 @@ dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+
