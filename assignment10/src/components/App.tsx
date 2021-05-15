@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { ListView } from './ListView';
-import { Store } from '../model/Store';
 import { Pagination } from './Pagination';
 
-const store = new Store();
+export const createFakeData = (page: number): string[] => {
+    const arr = [];
+    for (let i = (page - 1) * 20; i < 20 * page; i++) {
+        arr.push('Entry ' + i);
+    }
+    return arr;
+}
 
 export const App = (): JSX.Element => {
     const [page, setPage] = useState(1);
 
     return (
         <>
-            <ListView items={store.getDataForPage(page)} />
+            <ListView items={createFakeData(page)} />
             <Pagination page={page} maxPages={10} setPage={setPage} />
         </>
     );

@@ -16,7 +16,7 @@ module.exports = {
       .assert.visible('#next')
       .click('#next')
       .assert.containsText('#page', '2 / 10')
-      .assert.containsText('#list', 'Entry 10')
+      .assert.containsText('#list', 'Entry 20')
       .end();
   },
 

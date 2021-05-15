@@ -9,7 +9,6 @@ test('Click next success', () => {
     expect(pagination.find('#page').text()).toBe('1 / 10');
 
     pagination.find('#next').simulate('click');
-
     expect(pagination.find('#next').prop('disabled')).toBeFalsy();
     expect(spy).lastCalledWith(2);
 })
