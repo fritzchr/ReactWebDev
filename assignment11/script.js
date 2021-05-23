@@ -1,3 +1,6 @@
+// sometimes loading takes longer and only one or none of the graphs are displayed
+// either waiting until they've finished loading or refreshing the page should solve the problem
+
 const BASE_URL = 'https://api.covid19api.com'
 
 const margin = {top: 20, right: 40, bottom: 30, left: 60};
